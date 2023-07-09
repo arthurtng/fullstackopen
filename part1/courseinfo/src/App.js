@@ -6,17 +6,23 @@ const Header = (props) => {
   )
 }
 
+const Part = (props) => {
+  return (
+    <p>{props.part} {props.number}</p>
+  )
+}
+
 const Content = (props) => {    
   for (let i=0; i < props.list.length; i++){
     console.log('content: ' + props.list[i]['part'] + ' ' + props.list[i]['number'])
   }
-
-  const items = props.list.map(p => <p>{p['part']} {p['number']}</p>)
+  
+  const items = props.list.map(p => <Part part={p['part']} number={p['number']}/>)
       
   return (
-    <>
+    <div>
       {items}
-    </>
+    </div>
   )
 }
 
