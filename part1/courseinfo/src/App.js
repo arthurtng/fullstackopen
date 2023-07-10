@@ -43,7 +43,7 @@ const App = () => {
   
   const course = 'Half Stack application development'
 
-  const content = [
+  const parts = [
     { 
       part: 'Fundamentals of React',
       number: 10
@@ -61,8 +61,8 @@ const App = () => {
   return (
     <div>
       <Header course={course}/>      
-      <Content list={content} /> 
-      <Total list={content} />
+      <Content list={parts} /> 
+      <Total list={parts} />
     </div>
   )
 }
