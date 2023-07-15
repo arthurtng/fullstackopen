@@ -19,6 +19,7 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length))
 
   const getRandomIndex = (list) => {
     let index = selected
@@ -33,10 +34,18 @@ const App = () => {
     setSelected(getRandomIndex(list))
   }  
 
+  const addVote = (index) => {
+    const copy = [...votes]
+    copy[index] += 1
+    setVotes(copy)
+    console.log("votes for", anecdotes[index], ":", copy[index])
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
-      <br></br>
+      <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
+      <Button handleClick={() => addVote(selected)} text="vote" />
       <Button handleClick={() => setRandomIndex(anecdotes)} text="next anecdote" />
     </div>
   )
