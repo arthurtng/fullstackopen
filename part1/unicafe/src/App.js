@@ -9,12 +9,24 @@ const Button = (props) => {
 }
 
 const Statistics = (props) => {
-       
+  let [good, neutral, bad] = props.list
+  console.log("good", good, "\nneutral", neutral, "\nbad", bad)
+
+  let all = 0
+  props.list.forEach( num => {
+    all += num;
+  })
+  let average = (good - bad) / all
+  let positive = good / all*100
+
   return (
     <div>
-      <p>good {props.list[0]}</p>
-      <p>neutral {props.list[1]}</p>
-      <p>bad {props.list[2]}</p>
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
+      <p>all {all}</p>
+      <p>average {average}</p>
+      <p>positive {positive}%</p>
     </div>
   )  
 }
