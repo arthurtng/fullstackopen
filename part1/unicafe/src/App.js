@@ -12,6 +12,10 @@ const Statistics = (props) => {
   let [good, neutral, bad] = props.list
   console.log("good", good, "\nneutral", neutral, "\nbad", bad)
 
+  if (props.list.every((value) => value == 0)){
+    return <div>No feedback given</div>
+  }
+
   let all = 0
   props.list.forEach( num => {
     all += num;
