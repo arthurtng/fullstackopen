@@ -8,6 +8,10 @@ const Button = (props) => {
   return <button onClick={props.handleClick}>{props.text}</button>
 }
 
+const StatisticLine = (props) => {
+  return <p>{props.text} {props.value}</p>
+}
+
 const Statistics = (props) => {
   let [good, neutral, bad] = props.list
   console.log("good", good, "\nneutral", neutral, "\nbad", bad)
@@ -24,13 +28,13 @@ const Statistics = (props) => {
   let positive = good / all*100
 
   return (
-    <div>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {average}</p>
-      <p>positive {positive}%</p>
+    <div>      
+      <StatisticLine text="good" value={good} />
+      <StatisticLine text="neutral" value={neutral} />
+      <StatisticLine text="bad" value={bad} />  
+      <StatisticLine text="all" value={all} />
+      <StatisticLine text="average" value={average} />
+      <StatisticLine text="positive" value={positive} />          
     </div>
   )  
 }
@@ -40,29 +44,12 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const setToValue = (response, newValue) => {
-    console.log(response, newValue)
-    switch(response) {
-      case "good":
-        setGood(newValue);
-        break;
-      case "neutral":
-        setNeutral(newValue);
-        break;
-      case "bad":
-        setBad(newValue);
-        break;
-      default:
-        break;
-    }      
-  }
-
   return (
     <div>
       <Header text="give feedback" />      
-      <Button handleClick={() => setToValue("good", good+1)} text="good"/>
-      <Button handleClick={() => setToValue("neutral", neutral+1)} text="neutral"/>
-      <Button handleClick={() => setToValue("bad", bad+1)} text="bad"/>      
+      <Button handleClick={() => setGood(good+1)} text="good"/>
+      <Button handleClick={() => setNeutral(neutral+1)} text="neutral"/>
+      <Button handleClick={() => setBad(bad+1)} text="bad"/>      
       <Header text="statistics" />    
       <Statistics list={[good, neutral, bad]} />
     </div>
