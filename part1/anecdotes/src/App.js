@@ -6,6 +6,18 @@ const Button = (props) => {
   )
 }
 
+const Header = (props) => {
+  return <h1>{props.text}</h1>
+}
+
+const Anecdote = (props) => {
+  return <p>{props.text}</p>
+}
+
+const Votes = (props) => {
+  return <p>has {props.votes} votes</p>
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -19,7 +31,8 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length))
+  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length))  
+  const [maxVotesIndex, setMaxVotesIndex] = useState(0)
 
   const getRandomIndex = (list) => {
     let index = selected
@@ -39,14 +52,26 @@ const App = () => {
     copy[index] += 1
     setVotes(copy)
     console.log("votes for", anecdotes[index], ":", copy[index])
+    updateHighestVotes(index)
+  }
+
+  const updateHighestVotes = (index) => {
+    if (votes[index] + 1 > votes[maxVotesIndex]){
+      setMaxVotesIndex(index)
+      console.log("new highest votes:", anecdotes[index], votes[index] + 1)
+    }
   }
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
+      <Header text="Anecdote of the day" />
+      <Anecdote text={anecdotes[selected]} />      
+      <Votes votes={votes[selected]} />
       <Button handleClick={() => addVote(selected)} text="vote" />
       <Button handleClick={() => setRandomIndex(anecdotes)} text="next anecdote" />
+      <Header text="Anecdote with most votes" />
+      <Anecdote text={anecdotes[maxVotesIndex]} />
+      <Votes votes={votes[maxVotesIndex]} />
     </div>
   )
 }
